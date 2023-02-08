@@ -1242,6 +1242,9 @@ sev_snp_cpuid_info_fill(SnpCpuidInfo *snp_cpuid_info,
         snp_cpuid_entry->ecx = kvm_cpuid_entry->ecx;
         snp_cpuid_entry->edx = kvm_cpuid_entry->edx;
 
+        /* CachePC: disable AES-NI */
+        snp_cpuid_entry->ecx &= ~(1 << 25);
+
         /*
          * Guest kernels will calculate EBX themselves using the 0xD
          * subfunctions corresponding to the individual XSAVE areas, so only
